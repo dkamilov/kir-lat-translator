@@ -2,12 +2,15 @@ package com.damir.android.translator
 
 import android.os.Bundle
 import android.view.*
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_kir_lat.*
 
 class KirLatFragment : Fragment() {
+
+    private lateinit var chatAdapter: ChatAdapter
+    private val messages = mutableListOf<Message>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +29,9 @@ class KirLatFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setToolbar()
+        setChatRecycler()
         setSendMessageBtn()
+        initializeChat()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -34,41 +39,56 @@ class KirLatFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
+    private fun initializeChat() {
+        val abayMessage =
+                "Абай (Ибраһим) Құнанбаев (1845-1904) — ақын, ағартушы, " +
+                "жазба қазақ әдебиетінің, " +
+                "қазақ әдеби тілінің негізін қалаушы, " +
+                "философ, композитор"
+        val salemMessage = "Сәлем, қалайсың?"
+        sendMessage(abayMessage)
+        sendMessage(salemMessage)
+    }
+
     private fun setToolbar() {
         toolbar.title = getString(R.string.kirlat)
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
     }
 
+    private fun setChatRecycler() {
+        val layoutManager = LinearLayoutManager(requireContext())
+        layoutManager.stackFromEnd = true
+        chatAdapter = ChatAdapter(messages)
+        recyclerChat.layoutManager = layoutManager
+        recyclerChat.adapter = chatAdapter
+    }
+
     private fun setSendMessageBtn() {
         btn_send.setOnClickListener {
-            sendMessage()
+            val message = edit_message.text.toString()
+            sendMessage(message)
         }
     }
 
-    private fun sendMessage() {
-        if(edit_message.text.isNullOrBlank())
+    private fun sendMessage(cyrillic: String?) {
+        if(cyrillic.isNullOrBlank())
             return
-        val msg = inflateMessageItem(R.layout.item_send_message)
-        msg.text = edit_message.text
-        addMessageToChat(msg)
-        receiveMessage()
+        val message = Message(cyrillic, true)
+        messages.add(message)
+        updateMessages()
+        translateAndReceiveMessage(cyrillic)
         edit_message.text = null
     }
 
-    private fun receiveMessage() {
-        val msg = inflateMessageItem(R.layout.item_receive_message)
-        val cyrillic = edit_message.text.toString()
+    private fun translateAndReceiveMessage(cyrillic: String) {
         val latin = KirLatTranslator.translate(cyrillic)
-        msg.text = latin
-        addMessageToChat(msg)
+        val message = Message(latin, false)
+        messages.add(message)
+        updateMessages()
     }
 
-    private fun inflateMessageItem(resource: Int): TextView {
-        val msgView = layoutInflater.inflate(resource, layout_chat_list, false)
-        return msgView as TextView
-    }
-
-    private fun addMessageToChat(msg: View) {
-        layout_chat_list.addView(msg)
+    private fun updateMessages() {
+        chatAdapter.updateMessages()
+        recyclerChat.smoothScrollToPosition(messages.size - 1)
     }
 }
