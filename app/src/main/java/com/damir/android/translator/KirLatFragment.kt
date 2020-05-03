@@ -89,6 +89,6 @@ class KirLatFragment : Fragment() {
 
     private fun updateMessages() {
         chatAdapter.updateMessages()
-        recyclerChat.smoothScrollToPosition(messages.size - 1)
+        recyclerChat.scrollToPosition(messages.size - 1)
     }
 }
