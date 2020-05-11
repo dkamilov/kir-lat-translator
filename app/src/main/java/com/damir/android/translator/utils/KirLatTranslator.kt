@@ -1,4 +1,13 @@
-package com.damir.android.translator
+package com.damir.android.translator.utils
+
+import com.damir.android.translator.db.entity.KirLat
+
+val abayMessage =
+    "Абай (Ибраһим) Құнанбаев (1845-1904) — ақын, ағартушы, " +
+            "жазба қазақ әдебиетінің, " +
+            "қазақ әдеби тілінің негізін қалаушы, " +
+            "философ, композитор"
+val salemMessage = "Сәлем, қалайсың?"
 
 class KirLatTranslator {
     companion object {
@@ -51,7 +60,10 @@ class KirLatTranslator {
             for(c in msg) {
                 if(kirLatWords.containsKey(c.toLowerCase())) {
                     if(c.isUpperCase()) {
-                        val latin = makeUpperCase(c)
+                        val latin =
+                            makeUpperCase(
+                                c
+                            )
                         builder.append(latin)
                     }else{
                         builder.append(kirLatWords[c])

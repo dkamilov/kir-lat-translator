@@ -6,4 +6,9 @@
     <string name="search">Qyzyqty kontent</string>
     <string name="account">Jeke paraq</string>
     <string name="hint_message">Message</string>
+    <string name="title_copy">Kóshіrý</string>
+    <string name="title_share">Bólіsý</string>
+    <string name="title_delete">Óshіrý</string>
+    <string name="title_add_favorite">Unaǵandar tіzіmіne qosý</string>
+    <string name="no_favorites">You have no favorites!</string>
 </resources>
