@@ -25,6 +25,12 @@
         <item name="labelVisibilityMode">unlabeled</item>
         <item name="itemIconTint">@drawable/bg_bottom_nav_icons</item>
     </style>
+    
+    <style name="FabMini" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="android:layout_margin">8dp</item>
+        <item name="fabSize">mini</item>
+        <item name="backgroundTint">@color/white</item>
+    </style>
 
     <style name="MessageEditText" parent="Widget.AppCompat.EditText">
         <item name="android:layout_marginEnd">16dp</item>

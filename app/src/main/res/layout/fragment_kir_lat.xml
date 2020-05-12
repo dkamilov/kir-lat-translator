@@ -7,15 +7,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerChat"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@drawable/bg_chat_list"
+        android:scrollbars="vertical"
         app:layout_constraintBottom_toTopOf="@+id/layout_type_message"
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/item_send_message"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_scroll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_expand"
+        app:layout_constraintBottom_toBottomOf="@+id/recyclerChat"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/FabMini"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_type_message"

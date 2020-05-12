@@ -13,6 +13,7 @@ class KirLatViewModel(
     private val translatorRepository: TranslatorRepository = TranslatorRepository()
 ): ViewModel() {
 
+    var clickedMessagePosition: Int? = null
     val kirLats = translatorRepository.kirLats
 
     fun addKirLat(messageText: String) {

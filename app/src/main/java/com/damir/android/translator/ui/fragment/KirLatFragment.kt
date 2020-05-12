@@ -3,10 +3,12 @@ package com.damir.android.translator.ui.fragment
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
+import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.damir.android.translator.ChatAdapter
 import com.damir.android.translator.R
 import com.damir.android.translator.db.entity.Favorite
@@ -22,11 +24,15 @@ class KirLatFragment : Fragment(R.layout.fragment_kir_lat),
 
     private lateinit var chatAdapter: ChatAdapter
     private lateinit var kirLatViewModel: KirLatViewModel
-    private var clickedMessagePosition: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setButtons()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -34,7 +40,6 @@ class KirLatFragment : Fragment(R.layout.fragment_kir_lat),
         setToolbarTitle(R.string.kirlat)
         setObservers()
         setChatRecycler()
-        setSendMessageBtn()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -65,15 +70,15 @@ class KirLatFragment : Fragment(R.layout.fragment_kir_lat),
     private fun setChatRecycler() {
         val layoutManager = LinearLayoutManager(requireContext())
         layoutManager.stackFromEnd = true
-        chatAdapter = ChatAdapter { view, position ->
+        chatAdapter = ChatAdapter { _, position ->
             showDialogMessagePopup()
-            clickedMessagePosition = position
+            kirLatViewModel.clickedMessagePosition = position
         }
 
         recyclerChat.apply {
             this.layoutManager = layoutManager
             adapter = chatAdapter
-            addOnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
+            addOnLayoutChangeListener { _, _, _, _, bottom, _, _, _, oldBottom ->
                 if (bottom < oldBottom) {
                     recyclerChat.post {
                         recyclerScrollToEnd()
@@ -81,11 +86,24 @@ class KirLatFragment : Fragment(R.layout.fragment_kir_lat),
                 }
             }
         }
+
+        recyclerChat.addOnScrollListener(object: RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if(layoutManager.findLastCompletelyVisibleItemPosition() + 1 < layoutManager.itemCount) {
+                    showFabScroll()
+                } else {
+                    hideFabScroll()
+                }
+            }
+        })
     }
 
-    private fun setSendMessageBtn() {
+    private fun setButtons() {
         btn_send.setOnClickListener {
             sendMessage()
+        }
+        fab_scroll.setOnClickListener {
+            recyclerSmoothScrollToEnd()
         }
     }
 
@@ -115,17 +133,30 @@ class KirLatFragment : Fragment(R.layout.fragment_kir_lat),
         recyclerChat.scrollToPosition(chatAdapter.currentList.size - 1)
     }
 
+    private fun recyclerSmoothScrollToEnd() {
+        recyclerChat.smoothScrollToPosition(chatAdapter.currentList.size - 1)
+    }
+
+    private fun showFabScroll() {
+        fab_scroll.show()
+    }
+
+    private fun hideFabScroll() {
+        fab_scroll.hide()
+    }
+
     private fun addFavorite() {
         val kirLats = chatAdapter.currentList
+        val clickedMessagePosition = kirLatViewModel.clickedMessagePosition
         val favorite = if(kirLats[clickedMessagePosition!!].isSender) {
             Favorite(
-                sendMessage = kirLats[clickedMessagePosition!!].text,
-                receiveMessage = kirLats[clickedMessagePosition!! + 1].text
+                sendMessage = kirLats[clickedMessagePosition].text,
+                receiveMessage = kirLats[clickedMessagePosition + 1].text
             )
         }else {
             Favorite(
-                sendMessage = kirLats[clickedMessagePosition!!].text,
-                receiveMessage = kirLats[clickedMessagePosition!! - 1].text
+                sendMessage = kirLats[clickedMessagePosition].text,
+                receiveMessage = kirLats[clickedMessagePosition - 1].text
             )
         }
         kirLatViewModel.addFavorite(favorite)
