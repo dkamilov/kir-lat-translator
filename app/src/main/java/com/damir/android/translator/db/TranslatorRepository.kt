@@ -20,7 +20,15 @@ class TranslatorRepository(
         favoritesDao.addFavorite(favorite)
     }
 
-    suspend fun deleteFavorite(favorite: Favorite) {
-        favoritesDao.deleteFavorite(favorite)
+    suspend fun deleteFavorite(favoriteId: Int) {
+        favoritesDao.deleteFavorite(favoriteId)
+    }
+
+    suspend fun deleteFavoritePermanently() {
+        favoritesDao.deleteFavoritePermanently()
+    }
+
+    suspend fun undoFavoriteDeletion(favoriteId: Int) {
+        favoritesDao.undoFavoriteDeletion(favoriteId)
     }
 }

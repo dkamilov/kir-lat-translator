@@ -1,16 +1,17 @@
-package com.damir.android.translator.ui
+package com.damir.android.translator
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.damir.android.translator.R
 import com.damir.android.translator.ui.fragment.*
+import com.damir.android.translator.utils.ThemeUtils
+import com.damir.android.translator.utils.isThemeNight
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(R.style.AppTheme)
+        ThemeUtils.applyTheme(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
@@ -18,8 +19,9 @@ class MainActivity : AppCompatActivity() {
             loadFragment(KirLatFragment())
         }
         setBottomNav()
-
+        setThemeSwitcher()
         setSupportActionBar(toolbar_main)
+        supportActionBar?.title = null
     }
 
     private fun loadFragment(fragment: Fragment) {
@@ -27,6 +29,14 @@ class MainActivity : AppCompatActivity() {
             .beginTransaction()
             .replace(R.id.container, fragment)
             .commit()
+    }
+
+    private fun setThemeSwitcher() {
+        if(isThemeNight)
+            img_switch_theme.setImageResource(R.drawable.ic_moon)
+        img_switch_theme.setOnClickListener {
+            switchTheme()
+        }
     }
 
     private fun setBottomNav() {
@@ -44,6 +54,11 @@ class MainActivity : AppCompatActivity() {
         bottom_nav.setOnNavigationItemReselectedListener {
             return@setOnNavigationItemReselectedListener
         }
+    }
+
+    private fun switchTheme() {
+        ThemeUtils.saveThemeModeToPrefs(this)
+        recreate()
     }
 
     fun navigateToFavorite() {

@@ -10,9 +10,15 @@ interface FavoritesDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addFavorite(favorite: Favorite)
 
-    @Delete
-    suspend fun deleteFavorite(favorite: Favorite)
-
-    @Query("SELECT * FROM favorite")
+    @Query("SELECT * FROM favorite WHERE toDelete = 0")
     fun getFavorites(): LiveData<List<Favorite>>
+
+    @Query("UPDATE Favorite SET toDelete = 1 WHERE id =:favoriteId")
+    suspend fun deleteFavorite(favoriteId: Int)
+
+    @Query("DELETE FROM Favorite WHERE toDelete = 1")
+    suspend fun deleteFavoritePermanently()
+
+    @Query("UPDATE Favorite SET toDelete = 0 WHERE id =:favoriteId")
+    suspend fun undoFavoriteDeletion(favoriteId: Int)
 }

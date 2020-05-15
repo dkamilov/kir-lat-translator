@@ -1,6 +1,5 @@
-package com.damir.android.translator
+package com.damir.android.translator.ui
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,13 +8,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.damir.android.translator.R
 import com.damir.android.translator.db.entity.Favorite
 import kotlinx.android.synthetic.main.item_favorite.view.*
-import java.util.*
 
 class FavoritesAdapter(
     private val onItemDeleteClicked: (favorite: Favorite) -> Unit
-): ListAdapter<Favorite, FavoriteHolder>(FavoriteDiffUtil) {
+): ListAdapter<Favorite, FavoriteHolder>(
+    FavoriteDiffUtil
+) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteHolder {
         val inflater = LayoutInflater.from(parent.context)

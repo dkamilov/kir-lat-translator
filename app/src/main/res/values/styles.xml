@@ -1,35 +1,61 @@
 <resources>
 
-    <!-- Base application theme. -->
+    <style name="AppTheme.Launcher">
+        <item name="android:windowBackground">@drawable/bg_launch_screen</item>
+    </style>
+
+    <!-- Day application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:textColorPrimary">@color/gray</item>
         <item name="android:textColor">@color/text_black</item>
+        <item name="android:editTextColor">@color/text_black</item>
         <item name="actionMenuTextColor">@color/text_black</item>
         <item name="actionOverflowButtonStyle">@style/actionOverflowButtonStyle</item>
         <item name="fontFamily">@font/montserrat_font</item>
+
+        <item name="colorBottomNavUnchecked">@color/gray</item>
+        <item name="colorSendMessageBackground">@color/green_light</item>
+        <item name="colorFavoriteItemBackground">@color/blue_light</item>
+        <item name="colorMessagePopupIcon">@color/gray</item>
     </style>
 
-    <style name="AppTheme.Launcher">
-        <item name="android:windowBackground">@drawable/bg_launch_screen</item>
+    <!-- Night application theme. -->
+    <style name="AppThemeNight" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimaryNight</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkNight</item>
+        <item name="colorAccent">@color/colorAccentNight</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:editTextColor">@color/white</item>
+        <item name="android:windowBackground">@color/colorWindowBackgroundNight</item>
+        <item name="popupMenuBackground">@color/colorPrimaryNight</item>
+        <item name="actionMenuTextColor">@color/white</item>
+        <item name="actionOverflowButtonStyle">@style/actionOverflowButtonStyle</item>
+        <item name="fontFamily">@font/montserrat_font</item>
+
+        <item name="colorBottomNavUnchecked">@color/white</item>
+        <item name="colorSendMessageBackground">@color/green_dark</item>
+        <item name="colorFavoriteItemBackground">@color/black_light</item>
+        <item name="colorMessagePopupIcon">@color/white</item>
     </style>
 
     <style name="actionOverflowButtonStyle" parent="Widget.AppCompat.ActionButton.Overflow">
-        <item name="android:tint">@color/colorAccent</item>
+        <item name="android:tint">?attr/colorAccent</item>
     </style>
 
     <style name="BottomNavigation" parent="Widget.MaterialComponents.BottomNavigationView">
         <item name="labelVisibilityMode">unlabeled</item>
         <item name="itemIconTint">@drawable/bg_bottom_nav_icons</item>
+        <item name="android:background">?attr/colorPrimary</item>
     </style>
     
     <style name="FabMini" parent="Widget.MaterialComponents.FloatingActionButton">
         <item name="android:layout_margin">8dp</item>
+        <item name="tint">?attr/colorAccent</item>
         <item name="fabSize">mini</item>
-        <item name="backgroundTint">@color/white</item>
+        <item name="backgroundTint">?attr/colorPrimary</item>
     </style>
 
     <style name="MessageEditText" parent="Widget.AppCompat.EditText">
@@ -38,7 +64,7 @@
         <item name="android:imeOptions">flagNoExtractUi</item>
         <item name="android:inputType">textCapSentences|textMultiLine</item>
         <item name="android:hint">@string/hint_message</item>
-        <item name="android:textColor">@color/text_black</item>
+        <item name="hintTextColor">?android:attr/textColor</item>
         <item name="android:textSize">@dimen/font_message</item>
         <item name="android:background">@android:color/transparent</item>
     </style>

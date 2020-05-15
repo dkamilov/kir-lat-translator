@@ -4,10 +4,17 @@
     <color name="colorPrimaryDark">#1C1C1C</color>
     <color name="colorAccent">#1789DB</color>
 
+    <color name="colorPrimaryNight">#323D4E</color>
+    <color name="colorPrimaryDarkNight">#323D4E</color>
+    <color name="colorAccentNight">#DB7517</color>
+    <color name="colorWindowBackgroundNight">#141920</color>
+
     <color name="white">#FFF</color>
     <color name="gray">#808080</color>
     <color name="gray_light">#7A808080</color>
     <color name="text_black">#393737</color>
+    <color name="black_light">#95384251</color>
     <color name="green_light">#D5ECCF</color>
+    <color name="green_dark">#074A46</color>
     <color name="blue_light">#2CA7DCDD</color>
 </resources>

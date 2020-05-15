@@ -1,4 +1,4 @@
-package com.damir.android.translator
+package com.damir.android.translator.ui
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,11 +7,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.damir.android.translator.R
 import com.damir.android.translator.db.entity.KirLat
 
 class ChatAdapter(
     private val onTextMessageClicked: (view: View, position: Int) -> Unit
-): ListAdapter<KirLat, MessageHolder>(MessageDiffUtil) {
+): ListAdapter<KirLat, MessageHolder>(
+    MessageDiffUtil
+) {
 
     private val VIEW_TYPE_MESSAGE_SENDER = 0
     private val VIEW_TYPE_MESSAGE_RECEIVER = 1

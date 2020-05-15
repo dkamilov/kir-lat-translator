@@ -13,9 +13,21 @@ class FavoritesViewModel(
 
     val favorites = translatorRepository.favorites
 
-    fun deleteFavorite(favorite: Favorite) {
+    fun deleteFavorite(favoriteId: Int) {
         viewModelScope.launch(ioDispatcher) {
-            translatorRepository.deleteFavorite(favorite)
+            translatorRepository.deleteFavorite(favoriteId)
+        }
+    }
+
+    fun deleteFavoritePermanently() {
+        viewModelScope.launch(ioDispatcher) {
+            translatorRepository.deleteFavoritePermanently()
+        }
+    }
+
+    fun undoFavoriteDeletion(favoriteId: Int) {
+        viewModelScope.launch(ioDispatcher) {
+            translatorRepository.undoFavoriteDeletion(favoriteId)
         }
     }
 }

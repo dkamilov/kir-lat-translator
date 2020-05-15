@@ -8,5 +8,6 @@ data class Favorite(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     val sendMessage: String,
-    val receiveMessage: String
+    val receiveMessage: String,
+    val toDelete: Boolean = false
 )

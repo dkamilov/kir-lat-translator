@@ -9,12 +9,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.damir.android.translator.ChatAdapter
+import com.damir.android.translator.ui.ChatAdapter
 import com.damir.android.translator.R
 import com.damir.android.translator.db.entity.Favorite
 import com.damir.android.translator.db.entity.KirLat
-import com.damir.android.translator.ui.MainActivity
+import com.damir.android.translator.MainActivity
 import com.damir.android.translator.ui.MessageMenuDialog
+import com.damir.android.translator.utils.isThemeNight
 import com.damir.android.translator.utils.setToolbarTitle
 import com.damir.android.translator.vm.KirLatViewModel
 import kotlinx.android.synthetic.main.fragment_kir_lat.*
@@ -23,7 +24,18 @@ class KirLatFragment : Fragment(R.layout.fragment_kir_lat),
     MessageMenuDialog.MessagePopupDialogListener {
 
     private lateinit var chatAdapter: ChatAdapter
+    private lateinit var chatLayoutManager: LinearLayoutManager
     private lateinit var kirLatViewModel: KirLatViewModel
+
+    private val chatRecyclerScrollListener = object: RecyclerView.OnScrollListener() {
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            if(chatLayoutManager.findLastCompletelyVisibleItemPosition() + 1 < chatLayoutManager.itemCount) {
+                showFabScroll()
+            } else {
+                hideFabScroll()
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,8 +50,18 @@ class KirLatFragment : Fragment(R.layout.fragment_kir_lat),
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setToolbarTitle(R.string.kirlat)
-        setObservers()
         setChatRecycler()
+        setObservers()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        recyclerChat.addOnScrollListener(chatRecyclerScrollListener)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        recyclerChat.removeOnScrollListener(chatRecyclerScrollListener)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -68,15 +90,18 @@ class KirLatFragment : Fragment(R.layout.fragment_kir_lat),
     }
 
     private fun setChatRecycler() {
-        val layoutManager = LinearLayoutManager(requireContext())
-        layoutManager.stackFromEnd = true
-        chatAdapter = ChatAdapter { _, position ->
-            showDialogMessagePopup()
-            kirLatViewModel.clickedMessagePosition = position
-        }
+        chatLayoutManager = LinearLayoutManager(requireContext())
+        chatLayoutManager.stackFromEnd = true
+        chatAdapter =
+            ChatAdapter { _, position ->
+                showDialogMessagePopup()
+                kirLatViewModel.clickedMessagePosition = position
+            }
 
         recyclerChat.apply {
-            this.layoutManager = layoutManager
+            if(requireActivity().isThemeNight)
+                setBackgroundResource(R.drawable.bg_chat_list_night)
+            layoutManager = chatLayoutManager
             adapter = chatAdapter
             addOnLayoutChangeListener { _, _, _, _, bottom, _, _, _, oldBottom ->
                 if (bottom < oldBottom) {
@@ -86,16 +111,6 @@ class KirLatFragment : Fragment(R.layout.fragment_kir_lat),
                 }
             }
         }
-
-        recyclerChat.addOnScrollListener(object: RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                if(layoutManager.findLastCompletelyVisibleItemPosition() + 1 < layoutManager.itemCount) {
-                    showFabScroll()
-                } else {
-                    hideFabScroll()
-                }
-            }
-        })
     }
 
     private fun setButtons() {

@@ -5,7 +5,8 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:orientation="vertical"
-    android:gravity="center">
+    android:gravity="center"
+    android:background="?attr/colorPrimary">
 
    <TextView
        android:id="@+id/menu_copy"
