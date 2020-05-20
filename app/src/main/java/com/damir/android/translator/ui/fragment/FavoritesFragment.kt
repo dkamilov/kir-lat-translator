@@ -51,7 +51,7 @@ class FavoritesFragment: Fragment(R.layout.fragment_favorites){
     }
 
     private fun showSnackbarItemDeleted(favoriteId: Int) {
-        Snackbar.make(favorites_root, R.string.msg_item_deleted, 4000)
+        Snackbar.make(favorites_root, R.string.msg_item_deleted, 2000)
             .setAction(R.string.action_undo) {
                 undoFavoriteDeletion(favoriteId)
             }

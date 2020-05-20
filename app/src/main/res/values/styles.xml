@@ -45,6 +45,11 @@
         <item name="android:tint">?attr/colorAccent</item>
     </style>
 
+    <style name="TextVideoTime" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
     <style name="BottomNavigation" parent="Widget.MaterialComponents.BottomNavigationView">
         <item name="labelVisibilityMode">unlabeled</item>
         <item name="itemIconTint">@drawable/bg_bottom_nav_icons</item>
@@ -67,6 +72,14 @@
         <item name="hintTextColor">?android:attr/textColor</item>
         <item name="android:textSize">@dimen/font_message</item>
         <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="SearchEditText" parent="Widget.AppCompat.EditText">
+        <item name="android:padding">8dp</item>
+        <item name="android:inputType">textCapSentences</item>
+        <item name="android:imeOptions">actionSearch</item>
+        <item name="android:background">@drawable/bg_edit_text_search</item>
+        <item name="android:hint">@string/hint_search</item>
     </style>
     
     <style name="PopupMenuItem" parent="Widget.AppCompat.TextView">

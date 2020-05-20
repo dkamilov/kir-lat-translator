@@ -1,8 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="8dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <EditText
+        android:id="@+id/edit_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_search"
+        android:drawablePadding="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/SearchEditText" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerSearch"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingTop="16dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_search"
+        tools:listitem="@layout/custom_video_view"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,4 +4,10 @@
     <attr name="colorSendMessageBackground" format="reference"/>
     <attr name="colorFavoriteItemBackground" format="reference"/>
     <attr name="colorMessagePopupIcon" format="reference"/>
+
+    <declare-styleable name="CustomVideoView">
+        <attr name="isControlsVisible" format="boolean"/>
+        <attr name="isPlaying" format="boolean"/>
+        <attr name="videoPath" format="string"/>
+    </declare-styleable>
 </resources>

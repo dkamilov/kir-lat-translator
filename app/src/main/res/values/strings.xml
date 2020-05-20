@@ -19,4 +19,8 @@
     <string name="action_undo">Undo</string>
 
     <string name="shared_prefs">com.damir.android.translator</string>
+    <string name="menu_send_author">Avtorǵa hat jazý</string>
+    <string name="menu_share">Qosymshamen bólіsý</string>
+    <string name="hint_search">Izdey</string>
+    <string name="text_00_00">00:00</string>
 </resources>

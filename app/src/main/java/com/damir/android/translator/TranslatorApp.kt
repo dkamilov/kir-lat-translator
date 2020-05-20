@@ -10,4 +10,6 @@ class TranslatorApp: Application() {
 
         super.onCreate()
     }
+
+    //TODO: Fix undoFavoriteDeletion when two items deleted together
 }

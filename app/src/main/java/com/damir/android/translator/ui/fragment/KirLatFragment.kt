@@ -9,11 +9,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.damir.android.translator.ui.ChatAdapter
+import com.damir.android.translator.MainActivity
 import com.damir.android.translator.R
 import com.damir.android.translator.db.entity.Favorite
 import com.damir.android.translator.db.entity.KirLat
-import com.damir.android.translator.MainActivity
+import com.damir.android.translator.ui.ChatAdapter
 import com.damir.android.translator.ui.MessageMenuDialog
 import com.damir.android.translator.utils.isThemeNight
 import com.damir.android.translator.utils.setToolbarTitle
