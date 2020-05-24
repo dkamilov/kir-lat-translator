@@ -2,6 +2,7 @@
 <resources>
     <attr name="colorBottomNavUnchecked" format="reference"/>
     <attr name="colorSendMessageBackground" format="reference"/>
+    <attr name="colorSendMessageTranslationBackground" format="reference"/>
     <attr name="colorFavoriteItemBackground" format="reference"/>
     <attr name="colorMessagePopupIcon" format="reference"/>
 

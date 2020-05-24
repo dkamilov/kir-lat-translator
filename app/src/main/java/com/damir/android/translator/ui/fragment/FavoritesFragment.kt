@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.damir.android.translator.R
-import com.damir.android.translator.db.entity.Favorite
+import com.damir.android.translator.data.db.entity.Favorite
 import com.damir.android.translator.ui.FavoritesAdapter
 import com.damir.android.translator.utils.ThemeUtils
 import com.damir.android.translator.utils.setToolbarTitle

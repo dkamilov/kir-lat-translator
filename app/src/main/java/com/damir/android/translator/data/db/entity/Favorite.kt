@@ -1,4 +1,4 @@
-package com.damir.android.translator.db.entity
+package com.damir.android.translator.data.db.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

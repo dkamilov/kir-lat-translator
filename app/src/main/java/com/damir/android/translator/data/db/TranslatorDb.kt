@@ -1,4 +1,4 @@
-package com.damir.android.translator.db
+package com.damir.android.translator.data.db
 
 import android.content.Context
 import android.util.Log
@@ -6,20 +6,19 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.damir.android.translator.db.entity.Favorite
-import com.damir.android.translator.db.entity.KirLat
+import com.damir.android.translator.data.db.entity.Favorite
+import com.damir.android.translator.data.db.entity.Message
 import com.damir.android.translator.utils.*
 import kotlinx.coroutines.*
-import kotlin.coroutines.coroutineContext
 
 @Database(
-    entities = [KirLat::class, Favorite::class],
+    entities = [Message::class, Favorite::class],
     version = 1,
     exportSchema = false
 )
 abstract class TranslatorDb: RoomDatabase() {
 
-    abstract fun kirLatDao(): KirLatDao
+    abstract fun messageDao(): MessageDao
     abstract fun favoritesDao(): FavoritesDao
 
     companion object {
@@ -41,16 +40,21 @@ abstract class TranslatorDb: RoomDatabase() {
                 .build()
         }
 
-        fun get(): TranslatorDb = INSTANCE
+        fun get(): TranslatorDb =
+            INSTANCE
 
         private fun populateDb() {
             GlobalScope.launch {
                 val abayTranslated = KirLatTranslator.translate(abayMessage)
                 val salemTranslated = KirLatTranslator.translate(salemMessage)
-                get().kirLatDao().addMessage(KirLat(text = abayMessage, isSender = true))
-                get().kirLatDao().addMessage(KirLat(text = abayTranslated, isSender = false))
-                get().kirLatDao().addMessage(KirLat(text = salemMessage, isSender = true))
-                get().kirLatDao().addMessage(KirLat(text = salemTranslated, isSender = false))
+                get()
+                    .messageDao().addMessage(Message(text = abayMessage, isSender = true, isTranslation = false))
+                get()
+                    .messageDao().addMessage(Message(text = abayTranslated, isSender = false, isTranslation = false))
+                get()
+                    .messageDao().addMessage(Message(text = salemMessage, isSender = true, isTranslation = false))
+                get()
+                    .messageDao().addMessage(Message(text = salemTranslated, isSender = false, isTranslation = false))
             }
         }
     }

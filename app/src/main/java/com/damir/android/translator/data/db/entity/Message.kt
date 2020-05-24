@@ -1,12 +1,12 @@
-package com.damir.android.translator.db.entity
+package com.damir.android.translator.data.db.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class KirLat(
+data class Message(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     val text: String,
-    val isSender: Boolean
-)
+    val isSender: Boolean,
+    val isTranslation: Boolean)

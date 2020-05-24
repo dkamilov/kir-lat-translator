@@ -4,15 +4,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.damir.android.translator.R
-import com.damir.android.translator.db.entity.KirLat
+import com.damir.android.translator.data.db.entity.Message
 
 class ChatAdapter(
     private val onTextMessageClicked: (view: View, position: Int) -> Unit
-): ListAdapter<KirLat, MessageHolder>(
+): ListAdapter<Message, MessageHolder>(
     MessageDiffUtil
 ) {
 
@@ -47,24 +48,32 @@ class MessageHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
     private val messageText = itemView.findViewById<TextView>(R.id.text_message)
 
     fun bind(
-        kirLat: KirLat,
+        message: Message,
         position: Int,
         onTextMessageClicked: (view: View, position: Int) -> Unit
     ) {
-        messageText.text = kirLat.text
+        setBackgroundTranslation(message)
+        messageText.text = message.text
         messageText.setOnClickListener {
             onTextMessageClicked(it, position)
         }
     }
+
+    private fun setBackgroundTranslation(message: Message) {
+        if(message.isTranslation && message.isSender) {
+            messageText.setBackgroundResource(R.drawable.bg_item_send_message_translation)
+            messageText.setTextColor(ContextCompat.getColor(itemView.context, R.color.white))
+        }
+    }
 }
 
-object MessageDiffUtil : DiffUtil.ItemCallback<KirLat>(){
+object MessageDiffUtil : DiffUtil.ItemCallback<Message>(){
 
-    override fun areItemsTheSame(oldItem: KirLat, newItem: KirLat): Boolean {
+    override fun areItemsTheSame(oldItem: Message, newItem: Message): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: KirLat, newItem: KirLat): Boolean {
+    override fun areContentsTheSame(oldItem: Message, newItem: Message): Boolean {
         return oldItem == newItem
     }
 

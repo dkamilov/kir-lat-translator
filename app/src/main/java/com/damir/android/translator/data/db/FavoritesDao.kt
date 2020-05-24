@@ -1,8 +1,8 @@
-package com.damir.android.translator.db
+package com.damir.android.translator.data.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.damir.android.translator.db.entity.Favorite
+import com.damir.android.translator.data.db.entity.Favorite
 
 @Dao
 interface FavoritesDao {

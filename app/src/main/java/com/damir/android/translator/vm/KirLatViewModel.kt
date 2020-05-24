@@ -1,10 +1,11 @@
 package com.damir.android.translator.vm
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.damir.android.translator.db.TranslatorRepository
-import com.damir.android.translator.db.entity.Favorite
-import com.damir.android.translator.db.entity.KirLat
+import com.damir.android.translator.data.TranslatorRepository
+import com.damir.android.translator.data.db.entity.Favorite
+import com.damir.android.translator.data.db.entity.Message
 import com.damir.android.translator.utils.KirLatTranslator
 import com.damir.android.translator.utils.ioDispatcher
 import kotlinx.coroutines.launch
@@ -14,18 +15,29 @@ class KirLatViewModel(
 ): ViewModel() {
 
     var clickedMessagePosition: Int? = null
-    val kirLats = translatorRepository.kirLats
+    var selectedLang: String = "kk-en"
+    val kirLats = translatorRepository.latinMessages
+    val translations = translatorRepository.translationMessages
 
-    fun addKirLat(messageText: String) {
-        val kirLat = KirLat(
+    fun addLatinMessage(messageText: String) {
+        val kirLat = Message(
             text = messageText,
-            isSender = true
+            isSender = true,
+            isTranslation = false
         )
         val latin = translateKirLat(messageText)
-        viewModelScope.launch(ioDispatcher) {
-            translatorRepository.addKirLat(kirLat)
-            translatorRepository.addKirLat(latin)
-        }
+        addMessage(kirLat)
+        addMessage(latin)
+    }
+
+    fun addTranslationMessage(messageText: String) {
+        val original = Message (
+            text = messageText,
+            isSender = true,
+            isTranslation = true
+        )
+        addMessage(original)
+        translate(messageText)
     }
 
     fun addFavorite(favorite: Favorite) {
@@ -34,14 +46,31 @@ class KirLatViewModel(
         }
     }
 
-    private fun translateKirLat(messageText: String): KirLat {
-        val latin =
-            KirLatTranslator.translate(
-                messageText
+    private fun translate(text: String) {
+        viewModelScope.launch(ioDispatcher) {
+            val translated = translatorRepository.translate(text, selectedLang)
+            val message =  Message(
+                text = translated.text[0],
+                isSender = false,
+                isTranslation = true
             )
-        return KirLat(
+            addMessage(message)
+        }
+    }
+
+    private fun translateKirLat(messageText: String): Message {
+        val latin = KirLatTranslator
+            .translate(messageText)
+        return Message(
             text = latin,
-            isSender = false
+            isSender = false,
+            isTranslation = false
         )
+    }
+
+    private fun addMessage(message: Message) {
+        viewModelScope.launch(ioDispatcher) {
+            translatorRepository.addMessage(message)
+        }
     }
 }

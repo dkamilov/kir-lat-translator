@@ -1,7 +1,7 @@
 package com.damir.android.translator
 
 import android.app.Application
-import com.damir.android.translator.db.TranslatorDb
+import com.damir.android.translator.data.db.TranslatorDb
 
 class TranslatorApp: Application() {
 

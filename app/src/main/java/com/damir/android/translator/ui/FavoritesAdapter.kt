@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.damir.android.translator.R
-import com.damir.android.translator.db.entity.Favorite
+import com.damir.android.translator.data.db.entity.Favorite
 import kotlinx.android.synthetic.main.item_favorite.view.*
 
 class FavoritesAdapter(

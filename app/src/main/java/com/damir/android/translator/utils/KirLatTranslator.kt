@@ -1,7 +1,5 @@
 package com.damir.android.translator.utils
 
-import com.damir.android.translator.db.entity.KirLat
-
 val abayMessage =
     "Абай (Ибраһим) Құнанбаев (1845-1904) — ақын, ағартушы, " +
             "жазба қазақ әдебиетінің, " +

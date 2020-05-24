@@ -23,7 +23,3 @@ fun Fragment.setToolbarTitle(title: Int) {
     val m = (activity as AppCompatActivity) as MainActivity
     m.toobar_title.text = getString(title)
 }
-
-fun Fragment.showSnackBar(text: Int) {
-    Snackbar.make(requireView(), text, Snackbar.LENGTH_SHORT).show()
-}

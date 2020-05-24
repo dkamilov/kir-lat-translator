@@ -10,14 +10,16 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:textColor">@color/text_black</item>
-        <item name="android:editTextColor">@color/text_black</item>
-        <item name="actionMenuTextColor">@color/text_black</item>
+        <item name="android:textColor">@color/black_text</item>
+        <item name="android:editTextColor">@color/black_text</item>
+        <item name="actionMenuTextColor">@color/black_text</item>
         <item name="actionOverflowButtonStyle">@style/actionOverflowButtonStyle</item>
         <item name="fontFamily">@font/montserrat_font</item>
+        <item name="android:spinnerMode">dialog</item>
 
         <item name="colorBottomNavUnchecked">@color/gray</item>
         <item name="colorSendMessageBackground">@color/green_light</item>
+        <item name="colorSendMessageTranslationBackground">@color/blue</item>
         <item name="colorFavoriteItemBackground">@color/blue_light</item>
         <item name="colorMessagePopupIcon">@color/gray</item>
     </style>
@@ -34,9 +36,12 @@
         <item name="actionMenuTextColor">@color/white</item>
         <item name="actionOverflowButtonStyle">@style/actionOverflowButtonStyle</item>
         <item name="fontFamily">@font/montserrat_font</item>
+        <item name="android:spinnerMode">dialog</item>
+
 
         <item name="colorBottomNavUnchecked">@color/white</item>
         <item name="colorSendMessageBackground">@color/green_dark</item>
+        <item name="colorSendMessageTranslationBackground">@color/blue</item>
         <item name="colorFavoriteItemBackground">@color/black_light</item>
         <item name="colorMessagePopupIcon">@color/white</item>
     </style>
