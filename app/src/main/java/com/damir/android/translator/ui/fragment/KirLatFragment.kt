@@ -62,5 +62,6 @@ class KirLatFragment: BaseChatFragment(R.layout.fragment_kir_lat) {
         if(messageText.isBlank()) return
         kirLatViewModel.addLatinMessage(messageText)
         edit_message.text = null
+        incrementTranslatedWordCount()
     }
 }

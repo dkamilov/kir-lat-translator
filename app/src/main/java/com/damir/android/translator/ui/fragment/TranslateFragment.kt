@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.damir.android.translator.R
+import com.damir.android.translator.data.FirebaseUserInfo
+import com.damir.android.translator.firebase.FirebaseDatabase
 import com.damir.android.translator.utils.TextUtils
 import com.damir.android.translator.utils.setToolbarTitle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -76,7 +78,6 @@ AdapterView.OnItemSelectedListener{
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        Log.i("Damir", "onItemSelected $position")
         kirLatViewModel.selectedLang = if(position == 0) {
             "kk-en"
         }else {
@@ -105,6 +106,7 @@ AdapterView.OnItemSelectedListener{
         if(messageText.isBlank()) return
         kirLatViewModel.addTranslationMessage(messageText)
         edit_message.text = null
+        incrementTranslatedWordCount()
     }
 
     private fun changeSpinnerLang() {

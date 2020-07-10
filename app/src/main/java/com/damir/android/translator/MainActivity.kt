@@ -1,20 +1,23 @@
 package com.damir.android.translator
 
 import android.os.Bundle
+import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.damir.android.translator.ui.fragment.*
+import com.damir.android.translator.utils.SpentTimeCounter
 import com.damir.android.translator.utils.ThemeUtils
 import com.damir.android.translator.utils.isThemeNight
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    private val handler = Handler()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         ThemeUtils.applyTheme(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         if(savedInstanceState == null) {
             loadFragment(KirLatFragment())
         }
@@ -22,6 +25,16 @@ class MainActivity : AppCompatActivity() {
         setThemeSwitcher()
         setSupportActionBar(toolbar_main)
         supportActionBar?.title = null
+    }
+
+    override fun onStart() {
+        super.onStart()
+        startSpentTimeCounter()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        stopSpentTimeCounter()
     }
 
     private fun loadFragment(fragment: Fragment) {
@@ -59,6 +72,15 @@ class MainActivity : AppCompatActivity() {
     private fun switchTheme() {
         ThemeUtils.saveThemeModeToPrefs(this)
         recreate()
+    }
+
+    private fun startSpentTimeCounter() {
+        SpentTimeCounter.setHandler(handler)
+        SpentTimeCounter.start()
+    }
+
+    private fun stopSpentTimeCounter() {
+        SpentTimeCounter.stop()
     }
 
     fun navigateToFavorite() {

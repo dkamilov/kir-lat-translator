@@ -1,7 +1,8 @@
-package com.damir.android.translator.ui
+package com.damir.android.translator.ui.view
 
 import android.content.Context
 import android.os.Handler
+import android.util.AttributeSet
 import android.view.View
 import android.widget.SeekBar
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -9,7 +10,7 @@ import com.damir.android.translator.R
 import com.damir.android.translator.utils.TimeUtils
 import kotlinx.android.synthetic.main.custom_video_view.view.*
 
-class CustomVideoView(context: Context): ConstraintLayout(context) {
+class CustomVideoView(context: Context, attrs: AttributeSet): ConstraintLayout(context, attrs) {
 
     private val handlerTime = Handler()
 

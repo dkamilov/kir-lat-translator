@@ -24,7 +24,16 @@
     <string name="hint_search">Izdey</string>
     <string name="text_00_00">00:00</string>
     <string name="change">Change</string>
-    
+    <string name="text_authorize">Авторизация жасау</string>
+    <string name="text_statistic">Жеке статистика</string>
+    <string name="text_all_accounts">Барлық қолданушылар</string>
+    <string name="text_translated_word_count">Аударылған сөздер саны:</string>
+    <string name="text_user_spent_time">Қосымшада өтікзген уақыт саны:</string>
+    <string name="text_sign_out">Шығу</string>
+    <string name="msg_sign_out_failed">SignOut failed, check internet connection</string>
+    <string name="text_komedi_akim">Komedıia \'Ákіm\' 2020</string>
+    <string name="akim_desc">Молодого мажора по имени Азамат, привыкшего к комфортной городской жизни, по стечению непредвиденных обстоятельств, отправляют работать Акимом в отдаленный посёлок - Таза Булак. … С первого дня пребывания в ауле, новоиспечённый Аким мечтает о том, чтобы вернуться в город.</string>
+
     <string-array name="translation_languages">
         <item>Kaz - Eng</item>
         <item>Eng - Kaz</item>

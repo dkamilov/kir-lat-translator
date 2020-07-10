@@ -11,6 +11,7 @@ import com.damir.android.translator.MainActivity
 import com.damir.android.translator.R
 import com.damir.android.translator.data.db.entity.Favorite
 import com.damir.android.translator.data.db.entity.Message
+import com.damir.android.translator.firebase.FirebaseDatabase
 import com.damir.android.translator.ui.ChatAdapter
 import com.damir.android.translator.ui.MessageMenuDialog
 import com.damir.android.translator.utils.TextUtils
@@ -19,7 +20,8 @@ import com.damir.android.translator.vm.KirLatViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 
-abstract class BaseChatFragment(layoutRes: Int): Fragment(layoutRes), MessageMenuDialog.MessagePopupDialogListener {
+abstract class BaseChatFragment(layoutRes: Int): Fragment(layoutRes),
+    MessageMenuDialog.MessagePopupDialogListener {
 
     protected abstract var btnSend: ImageView
     protected abstract var fab: FloatingActionButton
@@ -93,6 +95,10 @@ abstract class BaseChatFragment(layoutRes: Int): Fragment(layoutRes), MessageMen
         val text = chatAdapter.currentList[clickedMessagePosition].text
         TextUtils.copyToClipboard(requireContext(), text)
         showSnackbarCopied()
+    }
+
+    protected fun incrementTranslatedWordCount() {
+        FirebaseDatabase.incrementWordsCount()
     }
 
     protected fun updateMessages(items: List<Message>) {

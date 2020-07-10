@@ -19,7 +19,7 @@
             android:id="@+id/videoView"
             android:layout_width="match_parent"
             android:layout_height="230dp"
-            android:background="@drawable/bg_custom_video_view"/>
+            android:background="@drawable/bg_frame_video"/>
 
         <ImageView
             android:id="@+id/btn_play_pause"
@@ -53,13 +53,13 @@
             android:id="@+id/text_time_current"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toStartOf="@+id/textView1"
+            app:layout_constraintEnd_toStartOf="@+id/textVideoTitle"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="00:00"
             style="@style/TextVideoTime"/>
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/textVideoTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=" - "
@@ -80,7 +80,7 @@
             android:id="@+id/seekBar_video"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/textView1" />
+            app:layout_constraintTop_toBottomOf="@+id/textVideoTitle" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

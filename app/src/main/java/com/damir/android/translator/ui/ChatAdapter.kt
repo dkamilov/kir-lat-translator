@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.damir.android.translator.R
 import com.damir.android.translator.data.db.entity.Message
+import com.damir.android.translator.utils.MessagePayload
 
 class ChatAdapter(
     private val onTextMessageClicked: (view: View, position: Int) -> Unit
@@ -42,6 +43,18 @@ class ChatAdapter(
     override fun onBindViewHolder(holder: MessageHolder, position: Int) {
         holder.bind(getItem(position), position, onTextMessageClicked)
     }
+
+    override fun onBindViewHolder(
+        holder: MessageHolder,
+        position: Int,
+        payloads: MutableList<Any>
+    ) {
+        if(payloads.isEmpty()) {
+            onBindViewHolder(holder, position)
+        } else {
+            holder.bind(getItem(position), position, onTextMessageClicked, payloads.first() as? Set<*>)
+        }
+    }
 }
 
 class MessageHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -53,10 +66,31 @@ class MessageHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         onTextMessageClicked: (view: View, position: Int) -> Unit
     ) {
         setBackgroundTranslation(message)
-        messageText.text = message.text
+        updateText(message.text)
         messageText.setOnClickListener {
             onTextMessageClicked(it, position)
         }
+    }
+
+    fun bind(
+        message: Message,
+        position: Int,
+        onTextMessageClicked: (view: View, position: Int) -> Unit,
+        fields: Set<*>?
+    ) {
+        fields?.forEach {
+            if(it == MessagePayload.TEXT) {
+                updateText(message.text)
+            }
+        }
+        setBackgroundTranslation(message)
+        messageText.setOnClickListener {
+            onTextMessageClicked(it, position)
+        }
+    }
+
+    private fun updateText(text: String) {
+        messageText.text = text
     }
 
     private fun setBackgroundTranslation(message: Message) {
@@ -75,6 +109,18 @@ object MessageDiffUtil : DiffUtil.ItemCallback<Message>(){
 
     override fun areContentsTheSame(oldItem: Message, newItem: Message): Boolean {
         return oldItem == newItem
+    }
+
+    override fun getChangePayload(oldItem: Message, newItem: Message): Any? {
+        val fields = mutableListOf<MessagePayload>()
+
+        if(oldItem.id != newItem.id) fields.add(MessagePayload.ID)
+        if(oldItem.text != newItem.text) fields.add(MessagePayload.TEXT)
+
+        return when {
+            fields.isNotEmpty() -> fields
+            else -> super.getChangePayload(oldItem, newItem)
+        }
     }
 
 }

@@ -1,8 +1,6 @@
 package com.damir.android.translator.vm
 
-import android.util.Log
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.damir.android.translator.data.TranslatorRepository
 import com.damir.android.translator.data.db.entity.Favorite
 import com.damir.android.translator.data.db.entity.Message
@@ -12,7 +10,7 @@ import kotlinx.coroutines.launch
 
 class KirLatViewModel(
     private val translatorRepository: TranslatorRepository = TranslatorRepository()
-): ViewModel() {
+): ViewModel(){
 
     var clickedMessagePosition: Int? = null
     var selectedLang: String = "kk-en"
